@@ -30,7 +30,6 @@ TARGET_KERNEL_ARCH := arm
 TARGET_KERNEL_HEADER_ARCH := arm
 TARGET_KERNEL_CONFIG := twrp_defconfig
 TARGET_KERNEL_VARIANT_CONFIG := apq8084_sec_trlte_eur_defconfig
-KERNEL_TOOLCHAIN_PREFIX := arm-eabi-
 
 # Boot image
 BOARD_KERNEL_CMDLINE := console=null androidboot.hardware=qcom androidboot.bootdevice=msm_sdcc.1 androidboot.selinux=permissive user_debug=23 msm_rtb.filter=0x3b7 dwc3_msm.cpu_to_affin=1
