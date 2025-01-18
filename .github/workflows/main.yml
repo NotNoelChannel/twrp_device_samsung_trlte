@@ -55,7 +55,7 @@ jobs:
         export OF_FLASHLIGHT_ENABLE=0
         export OF_DEVICE_WITHOUT_PERSIST=1
         export OF_DISABLE_EXTRA_ABOUT_PAGE=1
-        lunch omni_hlte-eng
+        lunch omni_trlte-eng
         make -j$(nproc --all) recoveryimage
     - name: Uploading OFRP builds
       uses: actions/upload-artifact@v3
