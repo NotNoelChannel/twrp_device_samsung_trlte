@@ -57,7 +57,7 @@ jobs:
         export OF_DEVICE_WITHOUT_PERSIST=1
         export OF_DISABLE_EXTRA_ABOUT_PAGE=1
         export CROSS_COMPILE=/opt/toolchains/arm-eabi-4.8/bin/arm-eabi-
-        wget https://github.com/xiaolu/mkbootimg_tools/raw/refs/heads/master/dtbToolCM -O /home/runner/OFRP/out/host/linux-x86/bin/dtbToolCM
+        wget https://github.com/xiaolu/mkbootimg_tools/raw/refs/heads/master/dtbToolCM -O /home/runner/OFRP/out/host/linux-x86/bin/
         lunch omni_trlte-eng
         make -j$(nproc --all) recoveryimage
     - name: Uploading OFRP builds
