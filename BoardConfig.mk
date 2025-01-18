@@ -1,6 +1,6 @@
 DEVICE_TREE := device/samsung/trlte
 
-CM_PLATFORM_SDK_VERSION := 7	# Required for libf2fs.so
+CM_PLATFORM_SDK_VERSION := 7
 override TARGET_OUT_VENDOR_SHARED_LIBRARIES = $(TARGET_OUT_SHARED_LIBRARIES)
 
 # Bootloader
@@ -30,7 +30,7 @@ TARGET_KERNEL_ARCH := arm
 TARGET_KERNEL_HEADER_ARCH := arm
 TARGET_KERNEL_CONFIG := twrp_defconfig
 TARGET_KERNEL_VARIANT_CONFIG := apq8084_sec_trlte_eur_defconfig
-KERNEL_TOOLCHAIN_PREFIX := arm-linux-androideabi-
+KERNEL_TOOLCHAIN_PREFIX := arm-eabi-
 
 # Boot image
 BOARD_KERNEL_CMDLINE := console=null androidboot.hardware=qcom androidboot.bootdevice=msm_sdcc.1 androidboot.selinux=permissive user_debug=23 msm_rtb.filter=0x3b7 dwc3_msm.cpu_to_affin=1
@@ -41,11 +41,13 @@ BOARD_MKBOOTIMG_ARGS := --kernel_offset 0x00008000 --ramdisk_offset 0x02600000 -
 BOARD_CUSTOM_BOOTIMG_MK := $(DEVICE_TREE)/mkbootimg.mk
 
 # Partitions
-BOARD_BOOTIMAGE_PARTITION_SIZE     := 0x001100000
-BOARD_RECOVERYIMAGE_PARTITION_SIZE := 0x001300000
-BOARD_SYSTEMIMAGE_PARTITION_SIZE   := 0x0E1000000
-BOARD_USERDATAIMAGE_PARTITION_SIZE := 0x62EFF7000 #0x62EFFB000 - 16384 (footer)
-BOARD_FLASH_BLOCK_SIZE := 0x40000
+BOARD_FLASH_BLOCK_SIZE := 262144
+BOARD_BOOTIMAGE_PARTITION_SIZE := 17825792
+BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE := ext4
+BOARD_CACHEIMAGE_PARTITION_SIZE := 524288000
+BOARD_RECOVERYIMAGE_PARTITION_SIZE := 23068672
+BOARD_SYSTEMIMAGE_PARTITION_SIZE := 3774873600
+BOARD_USERDATAIMAGE_PARTITION_SIZE := 26558296064
 
 # File systems
 BOARD_HAS_LARGE_FILESYSTEM := true
@@ -64,20 +66,17 @@ TW_MAX_BRIGHTNESS := 255
 TW_DEFAULT_BRIGHTNESS := 162
 TW_NO_REBOOT_BOOTLOADER := true
 TW_HAS_DOWNLOAD_MODE := true
-TW_INCLUDE_NTFS_3G := true
 # exFAT drivers included in the kernel
 TW_NO_EXFAT_FUSE := true
 # No love for the wicked (device ships with M)
 TW_EXCLUDE_SUPERSU := true
 
 # Encryption support
-TW_INCLUDE_CRYPTO := true
-TW_CRYPTO_USE_SYSTEM_VOLD := qseecomd
-TW_CRYPTO_SYSTEM_VOLD_DEBUG := true
-TARGET_KEYMASTER_WAIT_FOR_QSEE := true
-
-# Debug flags
-# TWRP_INCLUDE_LOGCAT := true
+# I disabled this to avoid build errors on OrangeFox Recovery,
+# if you know a fix then please let me know :D
+TW_INCLUDE_CRYPTO := false
+TW_CRYPTO_SYSTEM_VOLD_DEBUG := false
+TARGET_KEYMASTER_WAIT_FOR_QSEE := false
 
 # Init properties from bootloader version, ex. model info
 TARGET_UNIFIED_DEVICE := true
