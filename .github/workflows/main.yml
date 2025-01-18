@@ -31,6 +31,7 @@ jobs:
         python3 ~/.bin/repo init --depth=1 -u https://github.com/unlegacy-devices/fox-7.1_manifest -b twrp-7.1
         git clone --branch android-7.1 --single-branch https://github.com/NotNoelChannel/twrp_device_samsung_trlte.git ~/OFRP/device/samsung/trlte
         git clone --branch cm-14.1 --single-branch https://github.com/github-cygwin/android_kernel_samsung_apq8084.git ~/OFRP/kernel/samsung/apq8084
+        git clone --depth=1 --branch android-7.1.2_r38 --single-branch https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/arm/arm-eabi-4.8 /opt/toolchains/arm-eabi-4.8
         python3 ~/.bin/repo sync -c --force-sync --optimized-fetch --no-tags --no-clone-bundle --prune -j$(nproc --all)
     - name: Building OFRP
       run: |
@@ -55,6 +56,8 @@ jobs:
         export OF_FLASHLIGHT_ENABLE=0
         export OF_DEVICE_WITHOUT_PERSIST=1
         export OF_DISABLE_EXTRA_ABOUT_PAGE=1
+        export CROSS_COMPILE=/opt/toolchains/arm-eabi-4.8/bin/arm-eabi-
+        wget https://github.com/xiaolu/mkbootimg_tools/raw/refs/heads/master/dtbToolCM -O /home/runner/OFRP/out/host/linux-x86/bin/dtbToolCM
         lunch omni_trlte-eng
         make -j$(nproc --all) recoveryimage
     - name: Uploading OFRP builds
